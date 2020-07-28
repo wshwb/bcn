@@ -86,5 +86,8 @@ public interface WorksInfoMapper extends BaseMapper<WorksInfo> {
             "WHERE a.worksId = #{worksId}" )
     List<Map<String ,Object>> deGetInfoList(String worksId);
 
+    //get worksInfo.state==1
+    @Select("SELECT * FROM works_info WHERE state = #{state} limit 10")
+    List<Map<String,Object>> dyGetStateList(Integer state);
 
 }
