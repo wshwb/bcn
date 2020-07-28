@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration debug="false" scan="false">
+    <contextName>LabManage</contextName>
+    <Property name="log.name" value="blockchain"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-5level [%contextName] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log.base}/${log.name}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${log.base}/${log.name}-log-%d{yyyy-MM-dd}.%i.tar.gz</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 10 days worth of history, but at most 20GB -->
+            <maxFileSize>1024MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-5level [%contextName] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <File>${log.base}/${log.name}-err.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>${log.base}/${log.name}-log-err-%d{yyyy-MM-dd}.%i.tar.gz</fileNamePattern>
+            <!-- each file should be at most 100MB, keep 10 days worth of history, but at most 20GB -->
+            <maxFileSize>1024MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-5level [%contextName] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread] [%logger] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref="FILE"/>
+    </appender>
+
+    <appender name="ASYNC-ERROR" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1024</queueSize>
+        <appender-ref ref="FILE-ERROR"/>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ASYNC"/>
+        <appender-ref ref="ASYNC-ERROR"/>
+    </root>
+
+    <!-- 以下logger如若不清楚，则不要随意删除，否则会多出许多debug日志 -->
+    <logger name="org.springframework" additivity="true" level="INFO"/>
+    <logger name="org.mybatis.spring" additivity="true" level="INFO"/>
+    <logger name="java.sql" additivity="true" level="INFO"/>
+    <logger name="io.netty" additivity="true" level="ERROR"/>
+    <logger name="httpclient.wire" additivity="true" level="ERROR"/>
+    <logger name="com.taobao.diamond" additivity="true" level="INFO"/>
+    <logger name="org.apache.zookeeper" additivity="true" level="WARN"/>
+    <logger name="org.apache.commons" additivity="true" level="ERROR"/>
+    <logger name="org.I0Itec.zkclient" additivity="true" level="WARN"/>
+    <logger name="com.lambdaworks.redis" additivity="true" level="WARN"/>
+    <logger name="org.apache.activemq" additivity="true" level="WARN"/>
+    <logger name="org.apache.http" additivity="true" level="ERROR"/>
+    <logger name="com.yunji.erlang" additivity="true" level="INFO"/>
+    <logger name="DiamondConfigDataLog" additivity="true" level="WARN"/>
+    <logger name="org.redisson" additivity="true" level="ERROR"/>
+
+</configuration>

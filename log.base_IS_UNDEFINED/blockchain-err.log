@@ -1,0 +1,4 @@
+WARN  [LabManage] [2020-07-28 11:22:13.937] [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] - No MyBatis mapper was found in '[com.gala.blockchain.*.mapper]' package. Please check your configuration.
+WARN  [LabManage] [2020-07-28 11:22:15.025] [main] [com.zaxxer.hikari.util.DriverDataSource] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+WARN  [LabManage] [2020-07-28 11:36:01.477] [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] - No MyBatis mapper was found in '[com.gala.blockchain.*.mapper]' package. Please check your configuration.
+WARN  [LabManage] [2020-07-28 11:36:02.498] [main] [com.zaxxer.hikari.util.DriverDataSource] - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
